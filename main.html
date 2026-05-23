@@ -1,16 +1,87 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Color Board</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Container */
+    .container {
+      width: 900px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: center;
+    }
+
+    /* Squares */
+    .square {
+      width: 20px;
+      height: 20px;
+      background: #1d1d1d;
+      transition: background 1s ease, box-shadow 1s ease;
+    }
+  </style>
 </head>
 
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+
+  <div class="container" id="board"></div>
+
+  <script>
+    const container = document.getElementById("board");
+    const colors = [
+      "#e74c3c",
+      "#8e44ad",
+      "#3498db",
+      "#e67e22",
+      "#2ecc71",
+      "#f1c40f"
+    ];
+
+    // Create 800 boxes
+    for (let i = 0; i < 800; i++) {
+      const square = document.createElement("div");
+      square.classList.add("square");
+
+      square.addEventListener("mouseover", () => setColor(square));
+      square.addEventListener("mouseout", () => removeColor(square));
+
+      container.appendChild(square);
+    }
+
+    function setColor(element) {
+      const color = getRandomColor();
+
+      element.style.background = color;
+      element.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+    }
+
+    function removeColor(element) {
+      element.style.background = "#1d1d1d";
+      element.style.boxShadow = "0 0 2px #000";
+    }
+
+    function getRandomColor() {
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
 
 </body>
-
 </html>
